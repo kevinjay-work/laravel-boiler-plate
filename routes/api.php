@@ -14,5 +14,29 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return "test";
 });
+
+Route::options('*', function () {
+    $response = Response::make('');
+    $response->header('Access-Control-Allow-Origin', '*');
+    $response->header('Access-Control-Allow-Methods', 'POST, GET, DELETE,  OPTIONS');
+    $response->header('Access-Control-Allow-Headers', 'X-Requested-With');
+    return $response;
+});
+
+
+Route::get('/users', 'UserController@index');
+Route::get('/login', 'UserController@GetLogin');
+Route::post('/signup', 'UserController@SignUp');
+//::get('/user/{id}', 'userController@show');
+
+/***** Title ****/
+Route::get('/alltitle/{user_id}', 'TodoListController@AllTitle');
+Route::get('/addtitle', 'TodoListController@AddTitle');
+Route::patch('/updatetitle/{id}','TodoListController@updateTitle');
+Route::delete('title/{id}', 'TodoListController@delete');
+
+/***** Items ****/
+Route::get('/addlist', 'ListItemsController@AddList');
+
